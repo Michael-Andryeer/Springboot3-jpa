@@ -4,25 +4,39 @@ package com.educandoweb.course.resources;
 // Importa a classe User do pacote entities
 import com.educandoweb.course.entities.User;
 // Importa a classe ResponseEntity do pacote org.springframework.http para manipular respostas HTTP
+import com.educandoweb.course.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 // Importa a anotação GetMapping do pacote org.springframework.web.bind.annotation para mapear requisições HTTP GET
 import org.springframework.web.bind.annotation.GetMapping;
 // Importa a anotação RequestMapping do pacote org.springframework.web.bind.annotation para mapear requisições HTTP para um controlador específico
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 // Importa a anotação RestController do pacote org.springframework.web.bind.annotation para definir a classe como um controlador REST
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 // Define a classe UserResource como um controlador REST
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
+
+    @Autowired
+    private UserService service;
+
     // Mapeia requisições HTTP GET para o método findAll
     @GetMapping
-    public ResponseEntity<User> findAll() {
-        // Cria uma nova instância de User com dados fictícios
-        User user = new User(1L, "Michael", "Michael@gmail.com", "99999", "12345");
+    public ResponseEntity<List<User>> findAll() {
+        List<User> list = service.findAll();
         // Retorna uma resposta HTTP 200 (OK) contendo o objeto User no corpo da resposta
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
 }
 /*
