@@ -1,9 +1,12 @@
 // Define o pacote onde a classe está localizada
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 // Define a classe User e implementa a interface Serializable para permitir que objetos User sejam serializados
@@ -23,6 +26,10 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")// usada para definir um relacionamento de um-para-muitos entre duas entidades. Isso significa que uma instância de uma entidade pode estar associada a várias instâncias de outra entidade.
+    private List<Order> orders = new ArrayList<>();
+
     // Construtor vazio necessário para algumas operações de frameworks e bibliotecas
     public User() {}
 
@@ -31,7 +38,6 @@ public class User implements Serializable {
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -67,6 +73,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     // Construtor que inicializa todos os atributos da classe
