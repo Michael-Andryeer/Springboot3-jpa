@@ -1,16 +1,22 @@
 // Define o pacote onde a classe está localizada
 package com.educandoweb.course.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 // Define a classe User e implementa a interface Serializable para permitir que objetos User sejam serializados
+@Entity
+@Table(name= "tb_user")
 public class User implements Serializable {
 
     // Define um número de versão para a serialização, garantindo compatibilidade durante o processo de desserialização
     private static final long serialVersionUID = 1L;
 
     // Define os atributos da classe User
+    @Id //usada  para marcar um campo de uma classe de entidade como a chave primária.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // espefica que o valor do identificador primário (no caso, o campo id) deve ser gerado automaticamente pelo provedor de persistência, geralmente um banco de dados.
     private Long id;
     private String name;
     private String email;
