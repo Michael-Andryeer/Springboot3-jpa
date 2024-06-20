@@ -4,6 +4,7 @@ package com.educandoweb.course.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Objects;
 public class User implements Serializable {
 
     // Define um número de versão para a serialização, garantindo compatibilidade durante o processo de desserialização
+    @Serial
     private static final long serialVersionUID = 1L;
 
     // Define os atributos da classe User

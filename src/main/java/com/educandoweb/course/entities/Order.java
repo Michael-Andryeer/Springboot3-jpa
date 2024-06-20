@@ -5,15 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable{
+    @Serial
     private static final long SerialVersionUID = 1L;
-    @Id //usada  para marcar um campo de uma classe de entidade como a chave primária.
+    @Id //Usada para marcar um campo de uma classe de entidade como a chave primária.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
@@ -21,9 +25,12 @@ public class Order implements Serializable{
 
     private Integer orderStatus;
 
-    @ManyToOne // usada para definir um relacionamento de muitos-para-um entre duas entidades. Isso significa que muitas instâncias de uma entidade podem estar associadas a uma única instância de outra entidade.
+    @ManyToOne // Usada para definir um relacionamento de muitos-para-um entre duas entidades. Isso significa que muitas instâncias de uma entidade podem estar associadas a uma única instância de outra entidade.
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order(){}
 
@@ -66,6 +73,11 @@ public class Order implements Serializable{
     public void setClient(User client) {
         this.client = client;
     }
+
+    public Set<OrderItem> getItems(){
+        return items;
+    }
+
 
     @Override
     public boolean equals(Object o) {
