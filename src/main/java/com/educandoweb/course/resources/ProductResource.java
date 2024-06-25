@@ -16,7 +16,7 @@ import java.util.List;
 
 // Define a classe ProductResource como um controlador REST
 @RestController
-@RequestMapping(value = "/Products")
+@RequestMapping(value = "/products")
 public class ProductResource {
 
     @Autowired

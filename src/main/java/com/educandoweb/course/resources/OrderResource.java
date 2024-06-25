@@ -16,7 +16,7 @@ import java.util.List;
 
 // Define a classe OrderResource como um controlador REST
 @RestController
-@RequestMapping(value = "/Orders")
+@RequestMapping(value = "/orders")
 public class OrderResource {
 
     @Autowired

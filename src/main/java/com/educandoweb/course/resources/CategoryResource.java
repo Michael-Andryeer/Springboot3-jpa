@@ -16,7 +16,7 @@ import java.util.List;
 
 // Define a classe CategoryResource como um controlador REST
 @RestController
-@RequestMapping(value = "/Categories")
+@RequestMapping(value = "/categories")
 public class CategoryResource {
 
     @Autowired
