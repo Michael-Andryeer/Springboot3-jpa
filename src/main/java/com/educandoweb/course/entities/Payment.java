@@ -3,6 +3,7 @@ package com.educandoweb.course.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "tb_payment")
 public class Payment implements Serializable {
+    @Serial
     private static  final long SerialVersionUID = 1L;
 
     @Id

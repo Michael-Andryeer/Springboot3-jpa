@@ -6,15 +6,15 @@ import com.educandoweb.course.entities.User;
 // Importa a classe ResponseEntity do pacote org.springframework.http para manipular respostas HTTP
 import com.educandoweb.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.ResponseEntity;
 // Importa a anotação GetMapping do pacote org.springframework.web.bind.annotation para mapear requisições HTTP GET
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 // Importa a anotação RequestMapping do pacote org.springframework.web.bind.annotation para mapear requisições HTTP para um controlador específico
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 // Importa a anotação RestController do pacote org.springframework.web.bind.annotation para definir a classe como um controlador REST
-import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 // Define a classe UserResource como um controlador REST
@@ -37,6 +37,13 @@ public class UserResource {
     public ResponseEntity<User> findById(@PathVariable Long id) {
         User obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj){
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }
 /*
